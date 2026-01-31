@@ -1,0 +1,75 @@
+SMbuild
+    state '=>' effect '\n'
+    state '=>' effect '\n' SMbuild
+
+state
+    group
+    ID
+    condition
+
+group
+    state '&&' state
+    state '^' state
+    '!' state
+
+condition
+    '?(' value c_operator value ')'
+
+c_operator
+    '=='
+    '==='
+    '<'
+    '>'
+    '<='
+    '>='
+    '&'
+    '^'
+
+value
+    '$' ID
+    variable
+    number_literal
+    bool_literal
+    string_literal
+    'null'
+
+variable
+    /[^0-9]\w+/
+    /[^0-9]\w(\.\w+)+/
+
+number_literal
+    /\d+/
+    /\d+,\d/
+
+string_literal
+    /\".*\"/
+
+bool_literal
+    'True'
+    'true'
+    'False'
+    'false'
+
+effect
+    ID
+    function_call
+    set_variable
+
+set_variable
+    variable '=' value
+    '$' ID '=' number_literal
+    '$' ID '=' bool_literal
+    variable '+=' number_literal
+    '$' ID '+=' number_literal
+    variable '-=' number_literal
+    '$' ID '-=' number_literal
+    variable '++'
+    '$' ID '++'
+    variable '--'
+    '$' ID '--'
+
+function_call
+    variable '()'
+
+ID
+    { everything_else }
